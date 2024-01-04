@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:App2.ViewModel"
+             x:Class="App2.NewTravelPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:NewTravelVM x:Key="vm"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save" Command="{Binding Source={StaticResource vm}, Path=SaveCommand}"
+                     CommandParameter="{Binding Source={StaticResource vm}, Path=PostIsReady}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout BindingContext="{StaticResource vm}">
+            <Entry Placeholder="Write your experience" 
+                   x:Name="experienceEntry"
+                   Text="{Binding Experience}"/>
+            <ListView x:Name="venueListView" 
+                      HorizontalOptions="FillAndExpand"
+                      SeparatorColor="CadetBlue"
+                      RowHeight ="90"
+                      Header="Choose a venue!"
+                      ItemsSource="{Binding Venues}"
+                      SelectedItem="{Binding SelectedVenue}">
+                <ListView.ItemTemplate >
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <Label FontSize="20" Text="{Binding properties.name}"/>
+                                <Label Grid.Row="0"  Grid.Column="1" Text="{Binding properties.distance, StringFormat='{0} meter'}" TextColor="Black" VerticalTextAlignment="Center"/>
+                                <Label FontSize="Small" TextColor="DarkBlue"  Grid.Row="1" Grid.ColumnSpan="2"  Text="{Binding properties.formatted}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

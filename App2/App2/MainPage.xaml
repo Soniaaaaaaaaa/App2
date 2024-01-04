@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:App2.ViewModel"
+             x:Class="App2.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:MainVM x:Key="vm"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout Margin="15"
+                 VerticalOptions="Center"
+                 BindingContext="{StaticResource vm}">
+        <Image x:Name="iconImage"
+               Aspect="AspectFit"
+               HorizontalOptions="FillAndExpand"
+               Margin="0,0, 0, 50"/>
+        <Entry x:Name="emailEntry"
+               Placeholder="Email"
+               Keyboard="Email"
+               Text="{Binding Email}"
+               TextColor="{StaticResource blueColor}"/>
+        <Entry x:Name="passwordEntry"
+               Placeholder="Password"
+               Text="{Binding Password}"
+               IsPassword="True"
+               TextColor="{StaticResource blueColor}"/>
+        <Button x:Name="loginButton"
+                Text="Login"
+                Background="{StaticResource blueColor}"
+                Command="{Binding LoginCommand}"
+                CommandParameter="{Binding EntriesHaveText}"
+                Style="{StaticResource normalButton}"/>
+    </StackLayout>
+</ContentPage>
